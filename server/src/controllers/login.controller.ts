@@ -15,7 +15,6 @@ export const registerView =  (req: Request, res: Response) => {
   }
 
   
-
 export const registerUser = async (req: Request, res: Response) => {
     try {
         if (!req.body) {

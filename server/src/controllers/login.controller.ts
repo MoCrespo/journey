@@ -54,7 +54,6 @@ export const registerUser = async (req: Request, res: Response) => {
 
         await newUser.save();
         res.redirect("/login");
-
     } catch (error) {
         console.error('Error:', error);
         return res.status(500).send('Server Error');

@@ -10,6 +10,10 @@ export const registerView =  (req: Request, res: Response) => {
     res.render("register", {});
   };
 
+  export const loginView = (req: Request, res: Response) => {
+    res.render("login", {})
+  }
+
   
 
 export const registerUser = async (req: Request, res: Response) => {

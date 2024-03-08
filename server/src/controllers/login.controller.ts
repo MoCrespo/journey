@@ -38,7 +38,7 @@ export const registerUser = async (req: Request, res: Response) => {
         const userExists = await checkUserExistence(userName);
         
         if (userExists) {
-            // return res.render("register", { userName, firstName, lastName, password, confirm });
+            
           return  res.send("user is exist")
         }
 
@@ -53,8 +53,7 @@ export const registerUser = async (req: Request, res: Response) => {
         });
 
         await newUser.save();
-        return res.status(201).json(newUser)
-        // res.redirect("/login");
+        res.redirect("/login");
 
     } catch (error) {
         console.error('Error:', error);

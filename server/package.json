@@ -12,7 +12,6 @@
     "@types/express-flash": "^0.0.5",
     "@types/express-session": "^1.17.10",
     "@types/jasmine": "^5.1.4",
-    "@types/method-override": "^0.0.35",
     "@types/mongoose": "^5.11.97",
     "@types/morgan": "^1.9.9",
     "@types/node": "^20.11.19",

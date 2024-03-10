@@ -3,6 +3,9 @@
 <div class="row justify-content-center">
                     <div class="col-md-8">
                         <h2>JOURNEY APP</h2>  
+                        <% if (messages.error) { %>
+                            <%= messages.error %>
+                        <% } %>
                         <div class="card">
                             <div class="card-header">Login</div>
                             <div class="card-body">
@@ -11,11 +14,11 @@
 
                                 
                                     <div class="form-group">
-                                        <label for="userName" class="cols-sm-2 control-label">Your userName</label>
+                                        <label for="username" class="cols-sm-2 control-label">Your userName</label>
                                         <div class="cols-sm-10">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                                                <input type="text" class="form-control" name="userName" id="userName" placeholder="Enter your userName" />
+                                                <input type="text" class="form-control" name="username" id="username" placeholder="Enter your username" />
                                             </div>
                                         </div>
                                     </div>

@@ -1,9 +1,8 @@
 import { PassportStatic } from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import { checkUserExistence , verifyPassword } from '../services/login.service';
+import { checkUserExistence, verifyPassword } from '../services/login.service';
 
-
-const authenticateUser = async (username: string, password: string, done) => {
+export const authenticateUser = async (username: string, password: string, done) => {
   try {
    
     const isValid = await verifyPassword(username, password);
@@ -24,9 +23,7 @@ const authenticateUser = async (username: string, password: string, done) => {
 
 export const initialize = (passport: PassportStatic) => {
   passport.use(new LocalStrategy({ usernameField: 'username' }, authenticateUser));
-  passport.serializeUser((user: {username: string}, done) => {
-    done(null, user.username)
-  })
+  passport.serializeUser((user, done) => done(null, user))
   passport.deserializeUser(async (username: string, done) => {
     try{
         const user = await checkUserExistence(username)

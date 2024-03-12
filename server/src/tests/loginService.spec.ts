@@ -2,7 +2,7 @@ import {confirmedPassword, checkUserExistence , hashPassword, verifyPassword } f
 import connectDB from '../config/db'
 
 describe('login services ',  () => {
-   describe('confirmedPassword function', () => {
+   describe('confirmedPassword service', () => {
     it('should return true if password and confirmed password match', async () => {
         const result = await confirmedPassword('password', 'password');
         expect(result).toBe(true)

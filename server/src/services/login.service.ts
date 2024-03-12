@@ -22,6 +22,20 @@ export const hashPassword = async (p: string) => {
     return hash;
   }
 
+  export const verifyPassword = async (u: string, p:string) => {
+    try{ const user = await checkUserExistence(u);
+    if(!user) return false;
+ 
+    const isPasswordValid = await bcrypt.compare(p, user.password);
+    return isPasswordValid
+   }
+   catch(error) {
+     console.error("Error verifying password:", error)
+     return false;
+   }
+   }
+
+
   export const verifyPassword = async (p:string, u: string) => {
    try{ const user = await checkUserExistence(u);
    if(!user) return false;
@@ -34,3 +48,15 @@ export const hashPassword = async (p: string) => {
     return false;
   }
   }
+  export const verifyPassword = async (u: string, p:string) => {
+    try{ const user = await checkUserExistence(u);
+    if(!user) return false;
+ 
+    const isPasswordValid = await bcrypt.compare(p, user.password);
+    return isPasswordValid
+   }
+   catch(error) {
+     console.error("Error verifying password:", error)
+     return false;
+   }
+   }

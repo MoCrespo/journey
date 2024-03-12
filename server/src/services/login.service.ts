@@ -1,7 +1,12 @@
 import bcrypt from 'bcrypt';
 import { User } from '../models/User';
 
+export const getUserById = async (u: string) => {
+  const user = await User.findOne({userName: u}).select("_id");
 
+  if(!user) return null;
+  return user._id;
+}
 export const checkUserExistence  = async(u: string) => {
   const userName = await User.findOne({userName: u});
 

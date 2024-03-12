@@ -13,6 +13,7 @@ import morgan from 'morgan'
 import connectDB from './config/db';
 
 import userRoutes from './routes/login.routes';
+import journeyRoutes from './routes/journey.routes';
 import { initialize } from './auth/passport';
 
 const app : Application = express()
@@ -38,6 +39,7 @@ app.set('view engine', "ejs")
 
 
 userRoutes(app)
+journeyRoutes(app)
 
 
 

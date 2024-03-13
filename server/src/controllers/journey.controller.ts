@@ -1,11 +1,48 @@
 import { Journey } from '../models/Journey';
 import { Request, Response } from 'express';
+import {format} from 'date-fns'
 
-export const dashboardView = (req: Request, res: Response) => {
-    res.render("dashboard", {})
+
+export const newJourneyView = (req: Request, res: Response) => {
+    res.render("journey-form", {})
 }
 
-export const getaAllJourneys = async (req: Request, res: Response) => {
+export const editJourneyView = async (req: Request, res: Response) => {
+    try {
+        const journeyId = req.params.id;
+        const journey = await Journey.findById({_id: journeyId})
+        if(!journey) {
+            return res.status(404).json({message: "journey not found"})
+        }
+
+        const formattedJourney = {
+            ...journey.toObject(),
+            date: format(journey.date, "MMMM d, yyyy 'at' hh:mm a")
+        };
+        
+        res.render('journey-edit.ejs', {journey: formattedJourney})
+        
+      
+        
+    } catch (error) {
+        return res.status(500).json({message: "Server Error"})
+    }
+}
+
+export const dashboardView = async (req: Request, res: Response) => {
+    try{
+        const journeys = await Journey.find({createdBy: req.user}).sort({date: -1})
+        const formattedJourneys = journeys.map(journey => ({
+            ...journey.toObject(),
+            date: format(journey.date, "MMMM d, yyyy 'at' hh:mm a")
+        }));
+        res.render('dashboard.ejs', {journeys: formattedJourneys})
+    } catch(error) {
+        return res.status(500).json({message: "Failed to fetch journeys"})
+    }
+}
+
+export const getAllJourneys = async (req: Request, res: Response) => {
     try{
         const journeys = await Journey.find()
         res.status(200).json(journeys)
@@ -18,14 +55,20 @@ export const getaAllJourneys = async (req: Request, res: Response) => {
 export const getJourneyById = async (req: Request, res: Response) => {
     try {
         const journeyId = req.params.id;
-        const journey = await Journey.findById(journeyId)
+        const journey = await Journey.findById({_id: journeyId})
 
-        if(!journey) { 
-            return res.status(404).json({message: 'Journey not found'})
-    }
-         res.status(200).json(journey)
+        if(!journey) {
+            return res.status(404).json({message: "journey not found"})
+        }
+
+        const formattedJourney = {
+            ...journey.toObject(),
+            date: format(journey.date, "MMMM d, yyyy 'at' hh:mm a")
+        };
+        
+        res.render('journey-details.ejs', {journey: formattedJourney})
     } catch (error) {
-        return res.status(500).json({message: "Server Error"})
+        return res.status(500).json({message: "Failed to fetch journey details"})
     }
 }
 
@@ -46,7 +89,7 @@ export const createJourney = async (req: Request, res: Response) => {
 
         await newJourney.save()
 
-        res.status(201).json({message: 'Journey created successfully', newJourney})
+        res.redirect("/")
     } catch(error) {
         return res.status(500).send("Failed to create journey")
     }
@@ -64,7 +107,7 @@ export const updateJourney = async (req: Request, res: Response) => {
             return res.status(404).json({message: 'Journey not found'})
         }
 
-        res.status(202).json({message: 'Journey updated successfully', updatedJourney})
+        res.redirect(`/journey/${journeyId}`)
     } catch(error) {
         return res.status(500).send("Failed to update journey")
     }
@@ -80,7 +123,7 @@ export const deleteJourney = async (req: Request, res: Response) => {
             return res.status(404).json({message: 'Journey not found'})
         }
 
-        res.json({message: 'Journey deleted successfully', deletedJourney})
+        res.redirect('/')
     } catch (error) {
         return res.status(500).send("Failed to delete journey")
     }

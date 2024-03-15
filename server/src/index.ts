@@ -15,6 +15,7 @@ import connectDB from './config/db';
 import userRoutes from './routes/login.routes';
 import journeyRoutes from './routes/journey.routes';
 import { initialize } from './auth/passport';
+import notFoundRoute from './routes/notFound.routes';
 
 const app : Application = express()
 const port = process.env.PORT || 3000
@@ -40,6 +41,7 @@ app.set('view engine', "ejs")
 
 userRoutes(app)
 journeyRoutes(app)
+notFoundRoute(app)
 
 
 

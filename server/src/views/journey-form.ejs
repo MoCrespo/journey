@@ -1,0 +1,25 @@
+<%- include('layout.ejs'); %>
+<style>
+    .full-width-textarea  {
+    width: 100%; 
+    margin-bottom: 20px; 
+    resize: both; 
+    overflow: auto;
+}
+.container {
+    max-width: none;
+}
+</style>
+<div class="container" >
+    <h1>New Journey</h1>
+    <form action="/journey" method="POST">
+       
+       
+        <div class="full-width-textarea ">
+            <label for="journey"></label>
+            <textarea style="width: 100%; outline: none; padding: 10px;" id="journey" name="journey" rows="10" placeholder="Enter journey description..." required></textarea>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>

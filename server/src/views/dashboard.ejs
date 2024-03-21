@@ -1,7 +1,65 @@
 <%- include('layout.ejs'); %>
 
+<style>
 
-<h1> Hi </h1>
-<form action="/logout?_method=DELETE" method="POST">
-    <button type="submit">Log Out</button>
+
+    .new-journey-btn {
+    position: fixed;
+    bottom: 20px; 
+    right: 20px; 
+}
+
+.fixed-button {
+        position: fixed;
+        left: 20px; 
+        bottom: 20px;
+        z-index: 9999; 
+    }
+
+    
+    .logout-button {
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+    }
+
+    .logout-button:hover {
+        background-color: #c82333;
+    }
+</style>
+
+
+<div class="container">
+    <h1>Welcome to your dashboard</h1>
+    
+   
+    <% journeys.forEach(journey => { %>
+        <div class="row mb-4 journey">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <%= journey.date %> 
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"><%= journey.journey %></h5>
+                        <a href="/journey/<%= journey._id %>" class="btn btn-primary">View Journey</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% }) %>
+</div>
+
+<div class="new-journey-btn">
+    <a href="/journey/new" class="btn btn-primary">New</a>
+</div>
+
+<form action="/logout?_method=DELETE" method="POST" class="fixed-button">
+    <button type="submit" class="logout-button">Log Out</button>
 </form>
+

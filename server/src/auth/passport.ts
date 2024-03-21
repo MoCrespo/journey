@@ -1,6 +1,6 @@
 import { PassportStatic } from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import { checkUserExistence, verifyPassword } from '../services/login.service';
+import {  getUserById, verifyPassword } from '../services/login.service';
 
 export const authenticateUser = async (username: string, password: string, done) => {
   try {
@@ -26,7 +26,7 @@ export const initialize = (passport: PassportStatic) => {
   passport.serializeUser((user, done) => done(null, user))
   passport.deserializeUser(async (username: string, done) => {
     try{
-        const user = await checkUserExistence(username)
+        const user = await getUserById(username)
         if(user) {
             done(null, user)
         } else {

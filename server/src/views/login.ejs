@@ -1,10 +1,20 @@
 <%- include('layout.ejs'); %>
+<style>
+    .error-message {
+    background-color: #dc3545; 
+    padding: 10px;
+    border-radius: 5px;
+}
+
+</style>
 <div class="container">
 <div class="row justify-content-center">
                     <div class="col-md-8">
                         <h2>JOURNEY APP</h2>  
                         <% if (messages.error) { %>
+                        <div class="error-message" >
                             <%= messages.error %>
+                        </div>
                         <% } %>
                         <div class="card">
                             <div class="card-header">Login</div>

@@ -1,19 +1,14 @@
 import express, {Request, Response} from 'express'
 import { loginView, registerUser, registerView } from '../controllers/login.controller'
 import passport from 'passport'
-import { checkAuthenticated, checkNotAuthenticated } from '../middleware/auth.middleware'
+import { checkNotAuthenticated } from '../middleware/auth.middleware'
+
 
   
 
 const userRoutes = (app: express.Application) => {
-    app.get('/', checkAuthenticated, (req: Request, res: Response) => {
-    
-        res.render('dashboard.ejs')
-    })
-
-
-    app.get('/register', registerView)
-    app.post('/register', registerUser)
+    app.get('/register', checkNotAuthenticated ,registerView)
+    app.post('/register', checkNotAuthenticated ,registerUser)
 
     app.get('/login',checkNotAuthenticated, loginView)
     app.post('/login',checkNotAuthenticated, passport.authenticate('local', {

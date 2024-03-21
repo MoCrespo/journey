@@ -1,7 +1,20 @@
-import {confirmedPassword, checkUserExistence , hashPassword, verifyPassword } from '../services/login.service'
+import {confirmedPassword, checkUserExistence , hashPassword, verifyPassword, getUserById } from '../services/login.service'
 import connectDB from '../config/db'
 
 describe('login services ',  () => {
+    describe('getUserById service', () => {
+        connectDB()
+        it('should return null if user not exist', async () => {
+            const user_id = await getUserById('fake-user');
+            expect(user_id).toBeNull();
+        })
+
+        it('should return id if user exist', async () => {
+            const user_id = await getUserById('ss12');
+            expect(user_id).toEqual(user_id)
+        })
+    })
+
    describe('confirmedPassword service', () => {
     it('should return true if password and confirmed password match', async () => {
         const result = await confirmedPassword('password', 'password');

@@ -1,0 +1,27 @@
+<%- include('layout.ejs'); %>
+
+<div class="container">
+    <h1>Journey Details</h1>
+    <div class="card">
+        <div class="card-header">
+            
+        </div>
+        <div class="card-body">
+            <p><strong>Date:</strong> <%= journey.date %></p>
+            <p><strong>journey:</strong> <%= journey.journey %></p>
+            
+        </div>
+        <a href="/journey/edit/<%= journey._id %>" class="btn btn-primary">Edit Journey</a>
+    </div>
+    <form id="deleteJourneyForm" action="/journey/<%= journey._id %>?_method=DELETE" method="POST">
+        <button type="button" class="btn btn-danger mt-3" onclick="confirmDelete()">Delete Journey</button>
+    </form>
+</div>
+
+<script>
+    function confirmDelete() {
+        if (confirm('Are you sure you want to delete this journey?')) {
+            document.getElementById('deleteJourneyForm').submit();
+        }
+    }
+</script>

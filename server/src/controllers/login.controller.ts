@@ -18,27 +18,27 @@ export const registerView =  (req: Request, res: Response) => {
 export const registerUser = async (req: Request, res: Response) => {
     try {
         if (!req.body) {
-            return res.json("Body undefined");
+            return res.status(400).render('500error', {message: "Body undefined"});
         }
        
 
         const { userName, firstName, lastName, password, confirm } = req.body;
 
         if (!userName || !firstName || !lastName || !password || !confirm) {
-            return res.status(400).json("Fill empty fields");
+            return res.status(400).render('500error',{message:"Fill empty fields"});
         }
       
         
         const checkPassword = await confirmedPassword(password,confirm);
         if (!checkPassword) {
-            return res.status(400).json("Passwords must match ");
+            return res.status(400).render('500error', {message:"Passwords must match "});
         }
         
         const userExists = await checkUserExistence(userName);
         
         if (userExists) {
             
-          return  res.send("user is exist")
+          return  res.status(400).render('500error',{message:"user is exist"})
         }
 
     
@@ -55,7 +55,7 @@ export const registerUser = async (req: Request, res: Response) => {
         res.redirect("/login");
     } catch (error) {
         console.error('Error:', error);
-        return res.status(500).send('Server Error');
+        return res.status(500).render('500error',{message: 'Server Error'});
     }
 };
 

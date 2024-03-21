@@ -25,7 +25,7 @@ export const editJourneyView = async (req: Request, res: Response) => {
       
         
     } catch (error) {
-        return res.status(500).json({message: "Server Error"})
+        return res.status(500).render('500error',{message: "Server Error"})
     }
 }
 
@@ -38,7 +38,7 @@ export const dashboardView = async (req: Request, res: Response) => {
         }));
         res.render('dashboard.ejs', {journeys: formattedJourneys})
     } catch(error) {
-        return res.status(500).json({message: "Failed to fetch journeys"})
+        return res.status(500).render('500error',{message: "Failed to fetch journeys"})
     }
 }
 
@@ -68,7 +68,7 @@ export const getJourneyById = async (req: Request, res: Response) => {
         
         res.render('journey-details.ejs', {journey: formattedJourney})
     } catch (error) {
-        return res.status(500).json({message: "Failed to fetch journey details"})
+        return res.status(500).render('500error',{message: "Failed to fetch journey details"})
     }
 }
 
@@ -91,7 +91,7 @@ export const createJourney = async (req: Request, res: Response) => {
 
         res.redirect("/")
     } catch(error) {
-        return res.status(500).send("Failed to create journey")
+        return res.status(500).render('500error',{message: "Failed to create journey"})
     }
 }
 
@@ -109,7 +109,7 @@ export const updateJourney = async (req: Request, res: Response) => {
 
         res.redirect(`/journey/${journeyId}`)
     } catch(error) {
-        return res.status(500).send("Failed to update journey")
+        return res.status(500).render('500error',{message: "Failed to update journey"})
     }
 }
 
@@ -125,6 +125,6 @@ export const deleteJourney = async (req: Request, res: Response) => {
 
         res.redirect('/')
     } catch (error) {
-        return res.status(500).send("Failed to delete journey")
+        return res.status(500).render('500error',{message: "Failed to delete journey"})
     }
 }

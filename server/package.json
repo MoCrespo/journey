@@ -40,7 +40,8 @@
     "serve": "node dist/index.js",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write \"src/**/*.ts\"",
-    "test": "tsc && jasmine"
+    "test": "export NODE_ENV=test && tsc && jasmine",
+    "test:windows": "set NODE_ENV=test && tsc && jasmine"
   },
   "keywords": [],
   "author": "",

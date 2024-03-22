@@ -33,6 +33,7 @@ export const verifyPassword = async (u: string, p: string) => {
     if (!user) return false;
 
     const isPasswordValid = await bcrypt.compare(p, user.password);
+
     return isPasswordValid;
   } catch (error) {
     console.error('Error verifying password:', error);

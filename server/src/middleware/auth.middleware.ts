@@ -1,17 +1,16 @@
-import { Request, Response } from "express"
+import { Request, Response } from 'express';
 
+export const checkNotAuthenticated = (req: Request, res: Response, next) => {
+  if (req.isAuthenticated()) {
+    return res.redirect('/');
+  }
+  next();
+};
 
-export const  checkNotAuthenticated = (req: Request, res: Response, next) =>  {
-    if (req.isAuthenticated()) {
-      return res.redirect('/')
-    }
-    next()
+export const checkAuthenticated = (req: Request, res: Response, next) => {
+  if (req.isAuthenticated()) {
+    return next();
   }
 
-  export const  checkAuthenticated = (req: Request, res: Response, next) =>  {
-    if (req.isAuthenticated()) {
-      return next()
-    }
-  
-    res.redirect('/login')
-  }
+  res.redirect('/login');
+};

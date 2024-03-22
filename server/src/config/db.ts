@@ -1,10 +1,10 @@
-import mongoose from "mongoose";
-
-
+import mongoose from 'mongoose';
 
 const connectDB = async () => {
-    await mongoose.connect(process.env.MONGO_URI!);
-    console.log('MongoDB Connected');
-}
+  await mongoose.connect(process.env.MONGO_URI!, {
+    dbName: 'journey',
+  });
+  console.log('MongoDB Connected');
+};
 
 export default connectDB;
